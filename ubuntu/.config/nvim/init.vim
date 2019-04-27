@@ -8,9 +8,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'pangloss/vim-javascript'
 Plug 'MaxMEllon/vim-jsx-pretty'
 "Plug 'mxw/vim-jsx'
-Plug 'dikiaap/minimalist'
-"Theme subletext
-Plug 'ErichDonGubler/vim-sublime-monokai'
+"Theme
 Plug 'hzchirs/vim-material'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'prettier/vim-prettier', { 'do' : 'npm install' }
@@ -88,14 +86,14 @@ set t_Co=256
 " Theme
 let g:airline_theme='material'
 let g:material_style='palenight'
-syntax enable 
+syntax enable
 "let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
 set background=dark
-"colorscheme sublimemonokai 
+"colorscheme sublimemonokai
 let g:nord_italic_comments = 1
 let g:sublimemonokai_term_italic = 1
-colorscheme vim-material 
+colorscheme vim-material
 "NERDTree
 " How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -121,7 +119,7 @@ let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \}
 
-let g:ale_completion_enabled = 1 
+let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_eslint_executable = 'prettier-eslint'
 
@@ -158,4 +156,4 @@ hi javascriptMethod guifg=#ffd866 guibg=NONE gui=italic
 "
 
 let g:vim_jsx_pretty_colorful_config = 1
-let g:vim_jsx_pretty_highlight_close_tag = 0 
+let g:vim_jsx_pretty_highlight_close_tag = 0
