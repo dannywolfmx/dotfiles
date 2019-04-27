@@ -1,5 +1,7 @@
 # Dotfile
-dotfiles que utilizo
+
+**Dotfile hace referencia a esos archivos de configuracion que se utilizan para configurar una herramienta ejemplo: .bashrc, .vimrc, etc**
+
 
 Este dotfile se apoya de gnu-stow el cual creara enlaces simbolicos en el sistema operativo
 
