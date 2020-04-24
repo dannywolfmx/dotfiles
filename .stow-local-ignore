@@ -1,0 +1,13 @@
+^/README.*
+^/LICENSE.*
+^/COPYING
+\.cvsignore
+\.git
+\.gitignore
+\vimrc\^/README.*
+\vimrc\^/LICENSE.*
+\vimrc\^/COPYING
+\vimrc\.cvsignore
+\vimrc\.git
+\vimrc\.gitignore
+\vimrc\.gitmodules
