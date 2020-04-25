@@ -26,7 +26,7 @@ sudo apt install fzf
 #Install dotfile
 cd ~/
 rm dotfiles -rf
-rm .zshrc
+
 rm .bashrc
 rm .vimrc
 rm .vim -rf
@@ -34,7 +34,7 @@ rm -rf ~/.oh-my-zsh
 
 
 install () {
-
+  rm .zshrc
   git clone git@github.com:dannywolfmx/dotfiles.git
 
   # enlace simbolico del contenido de la carpeta
