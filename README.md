@@ -14,6 +14,8 @@ Ejemplo de uso en ubuntu
 ```stow ubuntu```
 donde "ubuntu" es la carpeta donde estan los dotfiles
 
-```sh -c "$(wget -O- https://raw.githubusercontent.com/dannywolfmx/dotfiles/master/init.sh)"``
+```
+sh -c "$(wget -O- https://raw.githubusercontent.com/dannywolfmx/dotfiles/master/init.sh)"
+```
 
 
