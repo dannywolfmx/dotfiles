@@ -53,7 +53,7 @@ install () {
 
 
   #APLICAR CAMBIOS EN EL SHELL SIN REINICIAR
-  source ~/.zshrc
+  zsh
 }
 
 
