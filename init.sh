@@ -49,7 +49,7 @@ install () {
   stow vimrc
 
   # Set zsh by default
-  chsh -s $(which zsh)
+  chsh -s /bin/zsh
 
 
   #APLICAR CAMBIOS EN EL SHELL SIN REINICIAR
