@@ -57,8 +57,6 @@ chsh -s $(which zsh)
 #APLICAR CAMBIOS EN EL SHELL SIN REINICIAR
 source ~/.zshrc
 
-rm ~/.oh-my-zsh -rf
-
 
 
 
