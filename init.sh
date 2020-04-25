@@ -55,7 +55,7 @@ source ~/.zshrc
 rm ~/.oh-my-zsh -rf
 
 # Set ZSH default shell
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 
 
 
