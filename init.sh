@@ -33,7 +33,7 @@ rm .vim -rf
 rm -rf ~/.oh-my-zsh
 
 
-function install {
+install () {
 
   git clone git@github.com:dannywolfmx/dotfiles.git
 
