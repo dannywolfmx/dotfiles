@@ -30,6 +30,11 @@ rm .zshrc
 rm .bashrc
 rm .vimrc
 rm .vim -rf
+rm -rf ~/.oh-my-zsh
+
+# Set ZSH default shell
+# Prevent zsh autoexecute with "RUNZSH=no CHSH=no"
+RUNZSH=no CHSH=no sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 
 git clone git@github.com:dannywolfmx/dotfiles.git
@@ -54,8 +59,7 @@ source ~/.zshrc
 
 rm ~/.oh-my-zsh -rf
 
-# Set ZSH default shell
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+
 
 
 
