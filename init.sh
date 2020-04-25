@@ -32,31 +32,34 @@ rm .vimrc
 rm .vim -rf
 rm -rf ~/.oh-my-zsh
 
+
+function install(){
+
+  git clone git@github.com:dannywolfmx/dotfiles.git
+
+  # enlace simbolico del contenido de la carpeta
+  cd ~/dotfiles
+
+
+  stow ubuntu
+
+
+  #Download vimrc
+  git clone --recurse-submodules -j8 git@github.com:dannywolfmx/vimrc.git
+  stow vimrc
+
+  # Set zsh by default
+  chsh -s $(which zsh)
+
+
+  #APLICAR CAMBIOS EN EL SHELL SIN REINICIAR
+  source ~/.zshrc
+}
+
+
 # Set ZSH default shell
 # Prevent zsh autoexecute with "RUNZSH=no CHSH=no"
-RUNZSH=no CHSH=no sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-
-git clone git@github.com:dannywolfmx/dotfiles.git
-
-# enlace simbolico del contenido de la carpeta
-cd ~/dotfiles
-
-
-stow ubuntu
-
-
-#Download vimrc
-git clone --recurse-submodules -j8 git@github.com:dannywolfmx/vimrc.git
-stow vimrc
-
-# Set zsh by default
-chsh -s $(which zsh)
-
-
-#APLICAR CAMBIOS EN EL SHELL SIN REINICIAR
-source ~/.zshrc
-
+RUNZSH=no CHSH=no sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && install
 
 
 
