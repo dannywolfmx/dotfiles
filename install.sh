@@ -4,3 +4,4 @@
 . $PWD/tools/golang.sh
 #.bashrc
 ln -s $PWD/.bashrc $HOME/.bashrc
+ln -s $PWD/.profile $HOME/.profile
