@@ -53,13 +53,13 @@ then
 	if [ "$answer" != "${answer#[Yy]}" ]
 	then
 		rm $ZSHRC_FILE
-		ln -s $PWD/.bashrc $ZSHRC_FILE
+		ln -s $PWD/.zshrc $ZSHRC_FILE
 	else
 		echo "Ok the link to .zshrc will not be applied"
 	fi
 else
 	#Link the bashrc
-	ln -s $PWD/.bashrc $ZSHRC_FILE
+	ln -s $PWD/.zshrc $ZSHRC_FILE
 fi
 
 #.profile
