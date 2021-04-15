@@ -17,7 +17,7 @@ then
 	. $PWD/emacs/install.sh 
 fi
 
-echo -n "Install Go? [Y/n] "
+echo -n "Install or update Go? [Y/n] "
 read answer 
 if [ "$answer" != "${answer#[Yy]}" ]
 then
