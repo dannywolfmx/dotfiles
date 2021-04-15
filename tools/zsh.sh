@@ -3,10 +3,9 @@
 #install 
 echo "Installing zsh"
 #fedora or redhat like
-rpm -qa | grep -qw zsh || 
-if ! rpm -qa | grep -qw zsh; then
+if [ -n "$(command -v dnf)" ]; then
 	sudo dnf install zsh
-elif ! dpkg -l | grep -qw zsh; then
+elif [ -n "$(command -v apt)" ]; then
 	sudo apt install zsh
 else
 	echo "Error on detect vendor (dnf | apt) to install zsh"
