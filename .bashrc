@@ -26,3 +26,5 @@ CGO_ENABLED=1
 alias firefox="flatpak run org.mozilla.firefox"
 alias obs="flatpak run com.obsproject.Studio"
 alias emacs="emacs -nw"
+#To fix an stange behaviour in linux subsystem 
+alias doom="$HOME/.emacs.d/bin/doom"
