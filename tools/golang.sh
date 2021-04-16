@@ -10,4 +10,6 @@ FILE_GO_PACKAGE=/tmp/$GO_PACKAGE_INSTALLER
 wget "https://dl.google.com/go/$GO_PACKAGE_INSTALLER" -O $FILE_GO_PACKAGE
 #
 # "Install" golang in the system
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $FILE_GO_PACKAGE 
+[ ! -d $HOME/workspace ] && mkdir $HOME/workspace
+rm -rf $HOME/workspace/go && tar -C $HOME/workspace -xzf $FILE_GO_PACKAGE 
+

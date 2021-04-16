@@ -13,8 +13,8 @@ export PATH
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
-export GOPATH=/usr/local/go
-export GOBIN=/usr/local/go/bin
+export GOPATH=$HOME/workspace/go
+export GOBIN=$HOME/workspace/go/bin
 export PATH=$PATH:$GOBIN
 
 PATH="$PATH:$HOME/.emacs.d/bin"
