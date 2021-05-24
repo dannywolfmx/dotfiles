@@ -1,31 +1,5 @@
 #!/bin/bash
 
-echo -n "Install ZSH? [Y/n] "
-read answer 
-if [ "$answer" != "${answer#[Yy]}" ]
-then
-	#Run install golang
-	. $PWD/tools/zsh.sh
-fi
-
-#Ask to install emacs
-echo -n "Install emacs? [Y/n] "
-read answer 
-if [ "$answer" != "${answer#[Yy]}" ]
-then
-	#Run install emacs
-	. $PWD/emacs/install.sh 
-fi
-
-echo -n "Install or update Go? [Y/n] "
-read answer 
-if [ "$answer" != "${answer#[Yy]}" ]
-then
-	#Run install golang
-	. $PWD/tools/golang.sh
-fi
-
-
 #.bashrc
 BASHRC_FILE=$HOME/.bashrc
 if test -f "$BASHRC_FILE";
@@ -78,4 +52,29 @@ then
 else
 	#Link the profile
 	ln -s $PWD/.profile $PROFILE_FILE
+fi
+
+echo -n "Install ZSH? [Y/n] "
+read answer 
+if [ "$answer" != "${answer#[Yy]}" ]
+then
+	#Run install golang
+	. $PWD/tools/zsh.sh
+fi
+
+#Ask to install emacs
+echo -n "Install emacs? [Y/n] "
+read answer 
+if [ "$answer" != "${answer#[Yy]}" ]
+then
+	#Run install emacs
+	. $PWD/emacs/install.sh 
+fi
+
+echo -n "Install or update Go? [Y/n] "
+read answer 
+if [ "$answer" != "${answer#[Yy]}" ]
+then
+	#Run install golang
+	. $PWD/tools/golang.sh
 fi

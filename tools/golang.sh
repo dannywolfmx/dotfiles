@@ -11,5 +11,9 @@ wget "https://dl.google.com/go/$GO_PACKAGE_INSTALLER" -O $FILE_GO_PACKAGE
 #
 # "Install" golang in the system
 [ ! -d $HOME/workspace ] && mkdir $HOME/workspace
-rm -rf $HOME/workspace/go && tar -C $HOME/workspace -xzf $FILE_GO_PACKAGE 
+rm -rf $HOME/workspace/go && tar -C $HOME/workspace -xzf $FILE_GO_PACKAGE
+export GOPATH=$HOME/workspace/go
+export GOBIN=$HOME/workspace/go/bin
+export PATH=$PATH:$GOBIN
 
+go get golang.org/x/tools/gopls@latest
