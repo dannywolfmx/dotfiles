@@ -1,5 +1,6 @@
 #!/bin/bash
 #Vendor
+sudo apt install curl
 #install 
 echo "Installing zsh"
 #fedora or redhat like
