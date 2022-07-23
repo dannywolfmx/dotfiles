@@ -1,0 +1,11 @@
+Install:
+  packages:
+    - vim
+    - emacs
+  special:
+    bash:
+      go: "./golang.sh"
+      zsh: "./zsh.sh"
+
+Upgrade:
+  run: apt -y upgrade
