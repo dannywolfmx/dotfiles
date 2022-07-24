@@ -1,11 +1,14 @@
-Install:
+install:
+  version: 0.1
   packages:
     - vim
     - emacs
+    - vi
+    - konqueror
   special:
     bash:
       go: "./golang.sh"
       zsh: "./zsh.sh"
 
-Upgrade:
+upgrade:
   run: apt -y upgrade
