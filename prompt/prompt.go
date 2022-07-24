@@ -2,7 +2,9 @@ package prompt
 
 import (
 	"bytes"
+	"io"
 	"log"
+	"os"
 	"os/exec"
 
 	"gopkg.in/AlecAivazis/survey.v1"
@@ -32,16 +34,13 @@ func install(distro string, programs []string) {
 	}
 
 	var outbuf, errbuf bytes.Buffer
-	cmd.Stdout = &outbuf
-	cmd.Stderr = &errbuf
+	cmd.Stdout = io.MultiWriter(os.Stdout, &outbuf)
+	cmd.Stderr = io.MultiWriter(os.Stderr, &errbuf)
 
 	err := cmd.Run()
-	stdout := outbuf.String()
-
-	log.Printf("\n%v\n", stdout)
 
 	if err != nil {
-		log.Printf("\nStdout: %v\n\n ExitCode: %v", errbuf.String(), err)
+		log.Printf("\nExitCode: %v\n", err)
 	}
 
 	return
