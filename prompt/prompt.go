@@ -49,7 +49,7 @@ func install(distro string, programs []string) {
 func (p *Prompt) Show() {
 	programs := []string{}
 	prompt := &survey.MultiSelect{
-		Message: "Que deseas instalar?",
+		Message: "¿Qué deseas instalar?",
 		Options: p.Recipe.Packages,
 	}
 	survey.AskOne(prompt, &programs, nil)

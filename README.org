@@ -1,0 +1,4 @@
+* dotfiles
+
+**** TODO Continuar instalación aunque no se encuentre uno de los programas
+**** TODO
