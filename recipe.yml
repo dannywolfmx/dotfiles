@@ -4,6 +4,8 @@ install:
     - vim
     - emacs
     - vi
+    - curl
+    - wget
   special:
     bash:
       go: "./tools/golang.sh"
