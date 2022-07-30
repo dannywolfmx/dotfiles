@@ -4,11 +4,10 @@ install:
     - vim
     - emacs
     - vi
-    - konqueron
   special:
     bash:
-      go: "./golang.sh"
-      zsh: "./zsh.sh"
+      go: "./tools/golang.sh"
+      zsh: "./tools/zsh.sh"
 
 upgrade:
   run: apt -y upgrade

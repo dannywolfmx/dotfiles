@@ -12,6 +12,9 @@ type Recipe struct {
 
 type Install struct {
 	Packages []string `yaml:"packages"`
+	Special  struct {
+		Bash map[string]string `yaml:"bash"`
+	}
 }
 
 func ReadRecipeFile(path string) (*Recipe, error) {

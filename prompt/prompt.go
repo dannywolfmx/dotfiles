@@ -2,12 +2,13 @@ package prompt
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"log"
 	"os"
 	"os/exec"
 
-	"gopkg.in/AlecAivazis/survey.v1"
+	"github.com/AlecAivazis/survey/v2"
 )
 
 type Prompt struct {
@@ -47,13 +48,25 @@ func install(distro string, programs []string) {
 }
 
 func (p *Prompt) Show() {
-	programs := []string{}
+	listPackages := []string{}
+	for i := range p.Recipe.Special.Bash {
+		listPackages = append(listPackages, fmt.Sprintf("%s - bash", i))
+	}
+	for _, v := range p.Recipe.Packages {
+		listPackages = append(listPackages, fmt.Sprintf("%s - apt-get", v))
+	}
+
+	programs := []int{}
 	prompt := &survey.MultiSelect{
 		Message: "¿Qué deseas instalar?",
-		Options: p.Recipe.Packages,
+		Options: listPackages,
+		VimMode: true,
 	}
 	survey.AskOne(prompt, &programs, nil)
 
-	distro := "Ubuntu"
-	install(distro, programs)
+	fmt.Println("Programas: ", programs)
+	if len(programs) > 0 {
+		fmt.Print(programs)
+		//install("Ubuntu", programs)
+	}
 }
