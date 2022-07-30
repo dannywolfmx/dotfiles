@@ -21,18 +21,14 @@ func NewPrompt(recipe *Recipe) *Prompt {
 	}
 }
 
-func install(distro string, programs []string) {
+func install(distro *Distro, programs []string) {
 	var cmd *exec.Cmd
 
 	args := []string{"install", "-y"}
 
 	args = append(args, programs...)
 
-	if "Ubuntu" == distro {
-		cmd = exec.Command("apt-get", args...)
-	} else if "Fedora" == distro {
-		cmd = exec.Command("dnf", programs...)
-	}
+	cmd = exec.Command(distro.PackageManager, args...)
 
 	var outbuf, errbuf bytes.Buffer
 	cmd.Stdout = io.MultiWriter(os.Stdout, &outbuf)
@@ -48,25 +44,33 @@ func install(distro string, programs []string) {
 }
 
 func (p *Prompt) Show() {
-	listPackages := []string{}
-	for i := range p.Recipe.Special.Bash {
-		listPackages = append(listPackages, fmt.Sprintf("%s - bash", i))
-	}
-	for _, v := range p.Recipe.Packages {
-		listPackages = append(listPackages, fmt.Sprintf("%s - apt-get", v))
+	distro, err := getDistro()
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	programs := []int{}
+	listPackages := []Program{}
+	listOptionsPackages := []string{}
+	for i := range p.Recipe.Special.Bash {
+		listOptionsPackages = append(listOptionsPackages, fmt.Sprintf("%s - bash", i))
+		listPackages = append(listPackages, *NewProgramBash(i))
+	}
+
+	for _, v := range p.Recipe.Packages {
+		listOptionsPackages = append(listOptionsPackages, fmt.Sprintf("%s - %s", v, distro.PackageManager))
+		listPackages = append(listPackages, *NewProgramPackageManager(v))
+	}
+
+	programs := []string{}
 	prompt := &survey.MultiSelect{
 		Message: "¿Qué deseas instalar?",
-		Options: listPackages,
+		Options: listOptionsPackages,
 		VimMode: true,
 	}
+
 	survey.AskOne(prompt, &programs, nil)
 
-	fmt.Println("Programas: ", programs)
 	if len(programs) > 0 {
-		fmt.Print(programs)
-		//install("Ubuntu", programs)
+		install(distro, programs)
 	}
 }
