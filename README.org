@@ -22,13 +22,39 @@ then
 	read answer
 	if [ "$answer" != "${answer#[Yy]}" ]
 	then
-		rm $HOME/.profile
+		rm $PROFILE_FILE
+      echo -n "Linking the .profile file"
 		ln -s $PWD/.profile $PROFILE_FILE
 	else
 		echo "Skipped"
 	fi
 else
 	#Link the profile
+  echo -n "Linking the .profile file"
 	ln -s $PWD/.profile $PROFILE_FILE
+fi
+#+end_src
+
+*** Tools
+**** Doom-emacs
+
+#+begin_src sh
+DOOM_DIR=$HOME/.doom.d
+if test -d "$DOOM_DIR";
+then
+	echo -n "A .doom.d directory detected, do you want to overwrite it? [Y/n] "
+	read answer
+	if [ "$answer" != "${answer#[Yy]}" ]
+	then
+		rm $DOOM_DIR -rf
+        echo -n "Linking the .doom.d DIR"
+		ln -s $PWD/emacs/.doom.d $DOOM_DIR
+	else
+		echo "Skipped"
+	fi
+else
+	#Link the profile
+    echo -n "Linking the .doom.d DIR"
+	ln -s $PWD/emacs/.doom.d $DOOM_DIR
 fi
 #+end_src
