@@ -1,80 +1,31 @@
-#!/bin/bash
+link (){
+    #echo $1 $2 $3 $4
 
-#.bashrc
-BASHRC_FILE=$HOME/.bashrc
-if test -f "$BASHRC_FILE";
-then
-	echo -n "A .bashrc file detected, do you want to overwrite it? [Y/n] "
-	read answer
-	if [ "$answer" != "${answer#[Yy]}" ]
-	then
-		rm $BASHRC_FILE
-		ln -s $PWD/.bashrc $BASHRC_FILE
-	else
-		echo "Ok the link to .bashrc will not be applied"
-	fi
-else
-	#Link the bashrc
-	ln -s $PWD/.bashrc $BASHRC_FILE
-fi
+    # Check if the file or dir already exist
+    if test $1 $3; then
+         echo -n " A $4 detected, do you want to overwrite it? [Y/n] "
+         read answer
+         if [ "$answer" != "${answer#[Nn]}" ]; then
+           echo "Skipped \n"
+           return 0
+         fi
+    fi
 
-#.bashrc
-ZSHRC_FILE=$HOME/.zshrc
-if test -f "$ZSHRC_FILE";
-then
-	echo -n "A .zshrc file detected, do you want to overwrite it? [Y/n] "
-	read answer
-	if [ "$answer" != "${answer#[Yy]}" ]
-	then
-		rm $ZSHRC_FILE
-		ln -s $PWD/.zshrc $ZSHRC_FILE
-	else
-		echo "Ok the link to .zshrc will not be applied"
-	fi
-else
-	#Link the bashrc
-	ln -s $PWD/.zshrc $ZSHRC_FILE
-fi
+    #Link the profile
+    rm $3 -rf
+    echo -n "Linking the $4 \n"
+    ln -s $2 $3
+    return 0
+}
 
-#.profile
 PROFILE_FILE=$HOME/.profile
-if test -f "$PROFILE_FILE";
-then
-	echo -n "A .profile file detected, do you want to overwrite it? [Y/n] "
-	read answer
-	if [ "$answer" != "${answer#[Yy]}" ]
-	then
-		rm $HOME/.profile
-		ln -s $PWD/.profile $PROFILE_FILE
-	else
-		echo "Ok the link to .profile will not be applied"
-	fi
-else
-	#Link the profile
-	ln -s $PWD/.profile $PROFILE_FILE
-fi
+link -f $PWD/.profile $PROFILE_FILE ".profile file"
 
-echo -n "Install ZSH? [Y/n] "
-read answer 
-if [ "$answer" != "${answer#[Yy]}" ]
-then
-	#Run install golang
-	. $PWD/tools/zsh.sh
-fi
+BASHFILE=$HOME/.bashrc
+link -f $PWD/.bash $BASHFILE ".bashrc file"
 
-#Ask to install emacs
-echo -n "Install emacs? [Y/n] "
-read answer 
-if [ "$answer" != "${answer#[Yy]}" ]
-then
-	#Run install emacs
-	. $PWD/emacs/install.sh 
-fi
+ZSHRC_FILE=$HOME/.zshrc
+link -f $PWD/.zshrc $ZSHRC_FILE ".zshrc file"
 
-echo -n "Install or update Go? [Y/n] "
-read answer 
-if [ "$answer" != "${answer#[Yy]}" ]
-then
-	#Run install golang
-	. $PWD/tools/golang.sh
-fi
+DOOM_DIR=$HOME/.doom.d
+link -d $PWD/emacs/.doom.d $DOOM_DIR ".doom.d DIR"

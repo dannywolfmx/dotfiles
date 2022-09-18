@@ -1,8 +1,7 @@
 #+title: Install
-#+PROPERTY: header-args:sh :tangle ./install.org.sh :mkdirp yes
+#+PROPERTY: header-args:sh :tangle ./install.sh :mkdirp yes
 
 * Dotfiles
-** TODO change the install.org.sh name to install.sh
 ** Intro
 To generate the install.sh file or update it you can use this org file using the "config (install.sh)" section.
 
@@ -11,50 +10,66 @@ Run the next command to create/update the config in the install.sh file using th
   (org-babel-tangle)
 #+end_src
 
+After update you will need to run the next command on the install file to make it executable
+#+begin_src bash
+    chmod +x install.sh
+#+end_src
+
 **  config (install.sh)
-*** Profile (.profile file)
+*** Function
+
+Link the files to the specific path example: "link -f $PWD/test.txt $FILE "test.txt file"
+#+begin_src sh
+link (){
+    #echo $1 $2 $3 $4
+
+    # Check if the file or dir already exist
+    if test $1 $3; then
+         echo -n " A $4 detected, do you want to overwrite it? [Y/n] "
+         read answer
+         if [ "$answer" != "${answer#[Nn]}" ]; then
+           echo "Skipped \n"
+           return 0
+         fi
+    fi
+
+    #Link the profile
+    rm $3 -rf
+    echo -n "Linking the $4 \n"
+    ln -s $2 $3
+    return 0
+}
+
+#+end_src
+
+*** Sysfiles
+**** Profile (.profile file)
 
 #+begin_src sh
+
 PROFILE_FILE=$HOME/.profile
-if test -f "$PROFILE_FILE";
-then
-	echo -n "A .profile file detected, do you want to overwrite it? [Y/n] "
-	read answer
-	if [ "$answer" != "${answer#[Yy]}" ]
-	then
-		rm $PROFILE_FILE
-      echo -n "Linking the .profile file"
-		ln -s $PWD/.profile $PROFILE_FILE
-	else
-		echo "Skipped"
-	fi
-else
-	#Link the profile
-  echo -n "Linking the .profile file"
-	ln -s $PWD/.profile $PROFILE_FILE
-fi
+link -f $PWD/.profile $PROFILE_FILE ".profile file"
+
+#+end_src
+
+**** Bash (.bashrc file)
+#+begin_src sh
+BASHFILE=$HOME/.bashrc
+link -f $PWD/.bash $BASHFILE ".bashrc file"
+#+end_src
+
+**** ZSH (.zshrc file)
+#+begin_src sh
+ZSHRC_FILE=$HOME/.zshrc
+link -f $PWD/.zshrc $ZSHRC_FILE ".zshrc file"
 #+end_src
 
 *** Tools
 **** Doom-emacs
 
 #+begin_src sh
+
 DOOM_DIR=$HOME/.doom.d
-if test -d "$DOOM_DIR";
-then
-	echo -n "A .doom.d directory detected, do you want to overwrite it? [Y/n] "
-	read answer
-	if [ "$answer" != "${answer#[Yy]}" ]
-	then
-		rm $DOOM_DIR -rf
-        echo -n "Linking the .doom.d DIR"
-		ln -s $PWD/emacs/.doom.d $DOOM_DIR
-	else
-		echo "Skipped"
-	fi
-else
-	#Link the profile
-    echo -n "Linking the .doom.d DIR"
-	ln -s $PWD/emacs/.doom.d $DOOM_DIR
-fi
+link -d $PWD/emacs/.doom.d $DOOM_DIR ".doom.d DIR"
+
 #+end_src
