@@ -1,0 +1,15 @@
+install:
+  version: 0.1
+  packages:
+    - vim
+    - emacs
+    - vi
+    - curl
+    - wget
+  special:
+    bash:
+      go: "./tools/golang.sh"
+      zsh: "./tools/zsh.sh"
+
+upgrade:
+  run: apt -y upgrade
