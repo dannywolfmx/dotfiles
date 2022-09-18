@@ -3,17 +3,17 @@ link (){
 
     # Check if the file or dir already exist
     if test $1 $3; then
-         echo -n " A $4 detected, do you want to overwrite it? [Y/n] "
+         echo -n "🚨 A $4 detected, do you want to overwrite it? [Y/n] "
          read answer
          if [ "$answer" != "${answer#[Nn]}" ]; then
-           echo "Skipped \n"
+           echo "⏩ Skipped \n"
            return 0
          fi
     fi
 
     #Link the profile
     rm $3 -rf
-    echo -n "Linking the $4 \n"
+    echo -n "🟢 Linking the $4 \n"
     ln -s $2 $3
     return 0
 }
