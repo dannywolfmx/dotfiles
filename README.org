@@ -1,4 +1,34 @@
-* dotfiles
+#+title: Install
+#+PROPERTY: header-args:sh :tangle ./install.org.sh :mkdirp yes
 
-**** TODO Continuar instalación aunque no se encuentre uno de los programas
-**** TODO
+* Dotfiles
+** TODO change the install.org.sh name to install.sh
+** Intro
+To generate the install.sh file or update it you can use this org file using the "config (install.sh)" section.
+
+Run the next command to create/update the config in the install.sh file using the org-babel-tangle in your emacs running C-c C-c into this block or run in your emacs M-x org-babel-tangle
+#+begin_src emacs-lisp
+  (org-babel-tangle)
+#+end_src
+
+**  config (install.sh)
+*** Profile (.profile file)
+
+#+begin_src sh
+PROFILE_FILE=$HOME/.profile
+if test -f "$PROFILE_FILE";
+then
+	echo -n "A .profile file detected, do you want to overwrite it? [Y/n] "
+	read answer
+	if [ "$answer" != "${answer#[Yy]}" ]
+	then
+		rm $HOME/.profile
+		ln -s $PWD/.profile $PROFILE_FILE
+	else
+		echo "Skipped"
+	fi
+else
+	#Link the profile
+	ln -s $PWD/.profile $PROFILE_FILE
+fi
+#+end_src
