@@ -6,7 +6,8 @@ link (){
          echo -n "🚨 A $4 detected, do you want to overwrite it? [Y/n] "
          read answer
          if [ "$answer" != "${answer#[Nn]}" ]; then
-           echo "⏩ Skipped \n"
+           echo "⏩ Skipped"
+           echo ""
            return 0
          fi
     fi
@@ -14,6 +15,7 @@ link (){
     #Link the profile
     rm $3 -rf
     echo -n "🟢 Linking the $4 \n"
+    echo ""
     ln -s $2 $3
     return 0
 }
