@@ -5,7 +5,7 @@
 ** Intro
 To generate the install.sh file or update it you can use this org file using the "config (install.sh)" section.
 
-Run the next command to create/update the config in the install.sh file using the org-babel-tangle in your emacs running /*C-c C-c*/ into this block or run in your emacs M-x org-babel-tangle
+Run the next command to create/update the config in the install.sh file using the org-babel-tangle in your emacs running *C-c C-c* into this block or run in your emacs M-x org-babel-tangle
 #+begin_src emacs-lisp
   (org-babel-tangle)
 #+end_src
