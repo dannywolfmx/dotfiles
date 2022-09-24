@@ -1,0 +1,9 @@
+* Doom emacs
+Doom has some common problems.
+** LSP
+If the lsp-client cannot find the server maybe emacs missed the env variables because doom forgot to generate it.
+
+To fix it you can run the next command
+#+begin_src sh
+doom env
+#+end_src
