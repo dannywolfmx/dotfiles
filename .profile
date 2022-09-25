@@ -47,3 +47,6 @@ alias firefox="flatpak run org.mozilla.firefox"
 alias obs="flatpak run com.obsproject.Studio"
 #To fix an stange behaviour in linux subsystem 
 alias doom="$HOME/.emacs.d/bin/doom"
+
+#flutter dart
+export PATH="$PATH:/usr/lib/dart/bin"
