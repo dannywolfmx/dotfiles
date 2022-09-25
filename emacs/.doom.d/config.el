@@ -61,7 +61,7 @@
 ;;  (add-hook 'before-save-hook #'lsp-format-buffer nil 'local)
   (add-hook 'before-save-hook #'lsp-organize-imports nil 'local))
 
-(add-hook 'go-mode-hook #'+zen/toggle)
+;;(add-hook 'go-mode-hook #'+zen/toggle)
 
 ;;(setq ispell-dictionary "castellano")
 
