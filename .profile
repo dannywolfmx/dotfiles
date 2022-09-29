@@ -50,3 +50,10 @@ alias doom="$HOME/.emacs.d/bin/doom"
 
 #flutter dart
 export PATH="$PATH:/usr/lib/dart/bin"
+
+#ssh-agent
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+   eval `ssh-agent -s`
+   ssh-add ~/.ssh/gitlab
+fi
+
