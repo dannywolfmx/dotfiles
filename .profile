@@ -50,3 +50,4 @@ alias doom="$HOME/.emacs.d/bin/doom"
 
 #flutter dart
 export PATH="$PATH:/usr/lib/dart/bin"
+export PATH="$PATH:$HOME/workspace/flutter/bin"
