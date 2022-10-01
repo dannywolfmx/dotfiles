@@ -23,7 +23,7 @@ CGO_ENABLED=1
 export ANDROID_SDK_ROOT=$HOME/workspace/android-sdk/
 export ANDROID_HOME=$ANDROID_SDK_ROOT
 
-export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
 
 alias java='openjdk.java'
 alias javac='openjdk.javac'
