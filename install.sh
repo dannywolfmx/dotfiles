@@ -164,56 +164,163 @@ echo "📦 Optional Tools Installation"
 echo "================================================"
 echo ""
 
-# Initialize installation flags
-INSTALL_ZSH="no"
-
-# Ask about ZSH installation FIRST (before linking .zshrc)
-if prompt_yes_no "🔧 Do you want to install ZSH and Oh My Zsh? [y/N] " "N"; then
-    INSTALL_ZSH="yes"
-    log_info "Installing ZSH..."
-    bash "$PWD/tools/zsh.sh"
+# Interactive menu (skip if --yes flag)
+if [ "$ASSUME_YES" = false ]; then
+    # Available tools
+    TOOLS=(
+        "ZSH:ZSH and Oh My Zsh shell:off"
+        "Golang:Go programming language:off"
+        "Node:Node.js via NVM:off"
+        "Flutter:Flutter SDK:off"
+        "Emacs:Doom Emacs:off"
+    )
+    
+    SELECTED=()
+    CURRENT=0
+    TOTAL=${#TOOLS[@]}
+    
+    # Parse initial selections
+    for i in "${!TOOLS[@]}"; do
+        IFS=':' read -r key desc state <<< "${TOOLS[$i]}"
+        SELECTED[$i]="$state"
+    done
+    
+    # Function to draw menu
+    draw_menu() {
+        clear
+        echo "================================================"
+        echo "📦 Select Tools to Install"
+        echo "================================================"
+        echo ""
+        echo "Use ↑/↓ arrows to navigate, SPACE or X to toggle, ENTER to confirm"
+        echo ""
+        
+        for i in "${!TOOLS[@]}"; do
+            IFS=':' read -r key desc state <<< "${TOOLS[$i]}"
+            
+            # Highlight current item
+            if [ $i -eq $CURRENT ]; then
+                echo -n "→ "
+            else
+                echo -n "  "
+            fi
+            
+            # Show checkbox
+            if [ "${SELECTED[$i]}" = "on" ]; then
+                echo -n "[✓] "
+            else
+                echo -n "[ ] "
+            fi
+            
+            # Show description
+            echo "$desc"
+        done
+        
+        echo ""
+        echo "Press 'a' to select all, 'n' for none"
+    }
+    
+    # Interactive selection
+    while true; do
+        draw_menu
+        
+        # Read single character
+        read -rsn1 key
+        
+        case "$key" in
+            $'\x1b')  # ESC sequence (arrow keys)
+                read -rsn2 key
+                case "$key" in
+                    '[A')  # Up arrow
+                        CURRENT=$((CURRENT - 1))
+                        if [ $CURRENT -lt 0 ]; then
+                            CURRENT=$((TOTAL - 1))
+                        fi
+                        ;;
+                    '[B')  # Down arrow
+                        CURRENT=$((CURRENT + 1))
+                        if [ $CURRENT -ge $TOTAL ]; then
+                            CURRENT=0
+                        fi
+                        ;;
+                esac
+                ;;
+            ' '|x)  # Space or 'x' - toggle selection
+                if [ "${SELECTED[$CURRENT]}" = "on" ]; then
+                    SELECTED[$CURRENT]="off"
+                else
+                    SELECTED[$CURRENT]="on"
+                fi
+                ;;
+            'a'|'A')  # Select all
+                for i in "${!SELECTED[@]}"; do
+                    SELECTED[$i]="on"
+                done
+                ;;
+            'n'|'N')  # Select none
+                for i in "${!SELECTED[@]}"; do
+                    SELECTED[$i]="off"
+                done
+                ;;
+            ''|$'\n')  # Enter - confirm
+                break
+                ;;
+        esac
+    done
+    
+    clear
+    
+    # Set installation flags based on selection
+    INSTALL_ZSH="${SELECTED[0]}"
+    INSTALL_GO="${SELECTED[1]}"
+    INSTALL_NODE="${SELECTED[2]}"
+    INSTALL_FLUTTER="${SELECTED[3]}"
+    INSTALL_EMACS="${SELECTED[4]}"
 else
-    log_info "Skipped ZSH installation"
+    # Non-interactive mode - install all
+    log_info "Auto-installing all tools (--yes mode)"
+    INSTALL_ZSH="on"
+    INSTALL_GO="on"
+    INSTALL_NODE="on"
+    INSTALL_FLUTTER="on"
+    INSTALL_EMACS="on"
 fi
 
 echo ""
+echo "================================================"
+echo "📦 Installing Selected Tools"
+echo "================================================"
+echo ""
 
-# Ask about Golang installation
-if prompt_yes_no "🔧 Do you want to install Golang? [y/N] " "N"; then
+# Install selected tools
+if [ "$INSTALL_ZSH" = "on" ]; then
+    log_info "Installing ZSH and Oh My Zsh..."
+    bash "$PWD/tools/zsh.sh"
+    echo ""
+fi
+
+if [ "$INSTALL_GO" = "on" ]; then
     log_info "Installing Golang..."
     bash "$PWD/tools/golang.sh"
-else
-    log_info "Skipped Golang installation"
+    echo ""
 fi
 
-echo ""
-
-# Ask about Node.js installation
-if prompt_yes_no "🔧 Do you want to install Node.js? [y/N] " "N"; then
+if [ "$INSTALL_NODE" = "on" ]; then
     log_info "Installing Node.js..."
     bash "$PWD/tools/node.sh"
-else
-    log_info "Skipped Node.js installation"
+    echo ""
 fi
 
-echo ""
-
-# Ask about Flutter installation
-if prompt_yes_no "🔧 Do you want to install Flutter? [y/N] " "N"; then
+if [ "$INSTALL_FLUTTER" = "on" ]; then
     log_info "Installing Flutter..."
     bash "$PWD/tools/flutter.sh"
-else
-    log_info "Skipped Flutter installation"
+    echo ""
 fi
 
-echo ""
-
-# Ask about Doom Emacs installation
-if prompt_yes_no "🔧 Do you want to install Doom Emacs? [y/N] " "N"; then
+if [ "$INSTALL_EMACS" = "on" ]; then
     log_info "Installing Doom Emacs..."
     bash "$PWD/emacs/install.sh"
-else
-    log_info "Skipped Doom Emacs installation"
+    echo ""
 fi
 
 echo ""
@@ -229,7 +336,7 @@ BASHFILE="$HOME/.bashrc"
 link -f "$PWD/.bashrc" "$BASHFILE" ".bashrc file"
 
 # Only link .zshrc if ZSH was installed (Oh My Zsh creates a default .zshrc)
-if [ "$INSTALL_ZSH" = "yes" ]; then
+if [ "$INSTALL_ZSH" = "on" ]; then
     echo ""
     echo "⚠️  Oh My Zsh created a default .zshrc"
     echo "Your custom .zshrc will replace it now"
