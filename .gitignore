@@ -1,1 +1,43 @@
-dotfiles
+# Editor and IDE files
+*~
+*.swp
+*.swo
+.DS_Store
+.vscode/
+.idea/
+*.sublime-*
+
+# Temporary and backup files
+*.tmp
+*.bak
+*.backup
+*.old
+.*.bak
+
+# OS specific
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Compiled files
+*.pyc
+*.pyo
+__pycache__/
+*.elc
+
+# Local environment files
+.env
+.env.local
+
+# Backup directory (created by install.sh)
+.dotfiles-backup/
+
+# Private/local configurations (not to be shared)
+*.local
+*-local.*
+local/
+
+# System-specific overrides
+hosts/*/local.sh
