@@ -16,3 +16,5 @@ fi
 if [ -x "$HOME/.emacs.d/bin/doom" ]; then
     alias doom="$HOME/.emacs.d/bin/doom"
 fi
+
+alias docker-compose="podman-compose"
