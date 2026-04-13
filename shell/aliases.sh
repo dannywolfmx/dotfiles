@@ -18,3 +18,4 @@ if [ -x "$HOME/.emacs.d/bin/doom" ]; then
 fi
 
 alias docker-compose="podman-compose"
+alias bat="batcat"
